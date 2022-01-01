@@ -1,0 +1,57 @@
+
+
+.toolbarIcon{
+    height:60%
+}
+.toolbarLabel{
+    height:40%;
+    width: 85%;
+    text-align: center;
+}
+.toolbarIconContainer {
+   
+display:flex;
+padding: 5px;
+height:100%;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+cursor: pointer !important;
+}
+.toolbarIconContainer:hover{
+   background:rgba(150,50,255,0.5);
+   border-radius: 2px;
+}
+
+.toolbar{
+
+
+ padding:5px;
+ background-color:#f7f7f7;
+ border:1px solid #ccc;
+ -moz-box-shadow: 0 1px 3px #777;
+ -webkit-box-shadow: 0 1px 3px #777;
+margin:0px 5px 0px 5px;
+ border-radius:5px;
+
+ 
+   }
+
+
+   .shadowBox {
+
+    background-color:#f7f7f7;
+    border:1px solid #ccc;
+
+margin:5px;
+    display:'flex';
+    
+    padding: 10px;
+    box-shadow: 2px 1px #888888  ;
+    border-radius:5px;
+}
+
+.blueDiv{
+    background-color: #63a4ff;
+background-image: linear-gradient(315deg, #c2ccda 50%, #2c4da0 74%);
+}
