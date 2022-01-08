@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import Maincomponent from './Maincomponent'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Network from './Components/Network'
@@ -9,25 +9,76 @@ import './myStyle/myStyle.css'
 import 'semantic-ui-css/semantic.min.css'
 import { myContext } from './Context/myContext';
 const Fullhomepage = () => {
-const [node,setNode]=useState('')
-const [scenario,setScenario]=useState('')
-const [tree,setTree]=useState([{
-    label: 'Main', nodeId: '1', isNested: true,
-    externalTree: [
-        { label: 'Resources', nodeId: '2', isNested: false },
-        { label: 'Resources2', nodeId: '3', isNested: false },
-        {
-            label: 'Resources3', nodeId: '4', isNested: true,
-            externalTree: [
-                { label: 'Resources', nodeId: '5', isNested: false },
-                { label: 'Resources2', nodeId: '6', isNested: false },]
-        },
+    const [node, setNode] = useState('')
+    const [fck, setFck] = useState(false)
+    const [scenario, setScenario] = useState('')
+    const [tree, setTree] = useState([{
+        label: 'Main', nodeId: '1', isNested: true,
+        externalTree: [
+            { label: 'Resources', nodeId: '2', isNested: false },
+            { label: 'Resources2', nodeId: '3', isNested: false },
+            {
+                label: 'Resources3', nodeId: '4', isNested: true,
+                externalTree: [
+                    { label: 'Resources', nodeId: '5', isNested: false },
+                    { label: 'Resources2', nodeId: '6', isNested: false },]
+            },
 
-    ]
-}])
+        ]
+    }])
+
+
+    const treeChanger = (scenarioName, workingNode) => {
+
+        console.log('workingnode', workingNode);
+        const newNode = {
+            isNested: false,
+            label: scenarioName,
+        }
+      
+        setTree(prevTree => {
+            //    console.log(prevTree , workingNode.nodeId)
+            let number = 0
+            const treeRecursion = (tree, workingNodeId, newNode) => {
+
+                tree.forEach(n => {
+                    number += 1
+                    n.nodeId = '' + number
+                    if (n.isNested) {
+                        if (n.nodeId == workingNodeId) {
+                            number += 1
+                            newNode.nodeId=  '' + number
+                            n.externalTree.push(newNode)
+                        }
+                        return treeRecursion(n.externalTree, workingNodeId, newNode)
+                    }
+                    else {
+                        if (n.nodeId == workingNodeId) {
+                            number += 1
+                            newNode.nodeId=  '' + number
+                            n.isNested = true
+                            n.externalTree = []
+                            n.externalTree.push(newNode)
+                        }
+                    }
+                })
+            }
+
+            let oldTree = prevTree
+            let workingNodeId = workingNode.nodeId
+            treeRecursion(oldTree, workingNodeId, newNode)
+            console.log(oldTree)
+            return [...oldTree]
+        })
+
+
+
+
+    }
+
 
     return (
-        <myContext.Provider value={{node,setNode,scenario,setScenario,tree,setTree}} >
+        <myContext.Provider value={{ node, setNode, scenario, setScenario, tree, setTree, treeChanger }} >
             <div>
                 <Toolbar></Toolbar>
                 <div style={{ display: 'flex', height: '90vh', width: '100%' }}>

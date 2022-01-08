@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import SvgIcon from '@mui/material/SvgIcon';
 import { alpha, styled } from '@mui/material/styles';
@@ -60,41 +60,40 @@ const StyledTreeItem = styled((props) => (
 }));
 
 export default function CustomizedTreeView(props) {
-const {setNode,setScenario,tree}=useContext(myContext)
-const [treeComponent,setTreeComponent]=useState('')
+    const { setNode, setScenario, tree } = useContext(myContext)
 
     const treeRecursion = (tree) => {
         return tree.map(t => {
             if (t.isNested) {
-                return <StyledTreeItem onClick={e=>{handleFocusTree(e,t)}} nodeId={t.nodeId} label={t.label}>{treeRecursion(t.externalTree)}</StyledTreeItem>
+                return <StyledTreeItem onClick={e => { handleFocusTree(e, t) }} nodeId={t.nodeId} label={t.label}>{treeRecursion(t.externalTree)}</StyledTreeItem>
             }
             else {
-                return <StyledTreeItem onClick={e=>{handleFocusTree(e,t)}} nodeId={t.nodeId} label={t.label} />
+                return <StyledTreeItem onClick={e => { handleFocusTree(e, t) }} nodeId={t.nodeId} label={t.label} />
             }
         })
     }
 
 
-const handleFocusTree=(e,t)=>{
-setScenario(t.label)
-setNode(t)
+    const handleFocusTree = (e, t) => {
+        setScenario(t.label)
+        setNode(t)
 
-}
+    }
 
     useEffect(() => {
-        
-       
+
+
         console.log(tree)
     }, [])
     return (
-        
+
         <TreeView
             aria-label="customized"
-            
+
             defaultCollapseIcon={<MinusSquare />}
             defaultExpandIcon={<PlusSquare />}
             defaultEndIcon={<CloseSquare />}
-            sx={{ height: 264, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+            sx={{ maxHeight: '85%', flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
         >
             {treeRecursion(props.tree)}
 
