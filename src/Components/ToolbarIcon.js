@@ -29,10 +29,10 @@ const ToolbarIcon = (props) => {
 
     })
   }
-  const handleAdd = (e) => {
+  const handleFunc = (changeType) => {
     let workingNode = node
     console.log(node)
-    treeChanger(addScenarioName, workingNode)
+    treeChanger(addScenarioName, workingNode,changeType)
 
 
 
@@ -52,7 +52,9 @@ const ToolbarIcon = (props) => {
         </Modal.Body>
         <Modal.Footer>
 
-          <Button onClick={handleAdd} variant="primary">Add</Button>
+          <Button onClick={()=>{
+            handleFunc('add')
+          }} variant="primary">Add</Button>
         </Modal.Footer>
       </>)
     else return (<><Modal.Header closeButton>
@@ -74,6 +76,11 @@ const ToolbarIcon = (props) => {
           handleShow()
 
         break;
+      case 'delete':
+        
+          handleFunc('delete')
+
+        break;
       default:
 
         break;
@@ -86,12 +93,12 @@ const ToolbarIcon = (props) => {
       <img className='toolbarIcon' alt='' src={props.info.picture}></img>
 
       <label className='toolbarLabel' >{props.info.name}</label>
-      <Modal show={show} onHide={handleClose} animation={true}>
-        {modalCreator()}
-      </Modal>
+
     </div>
 
-
+    <Modal show={show} onHide={handleClose} animation={true}>
+      {modalCreator()}
+    </Modal>
 
 
   </>)

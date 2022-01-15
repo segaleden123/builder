@@ -13,62 +13,88 @@ const Fullhomepage = () => {
     const [fck, setFck] = useState(false)
     const [scenario, setScenario] = useState('')
     const [tree, setTree] = useState([{
-        label: 'Main', nodeId: '1', isNested: true,
-        externalTree: [
-            { label: 'Resources', nodeId: '2', isNested: false },
-            { label: 'Resources2', nodeId: '3', isNested: false },
-            {
-                label: 'Resources3', nodeId: '4', isNested: true,
-                externalTree: [
-                    { label: 'Resources', nodeId: '5', isNested: false },
-                    { label: 'Resources2', nodeId: '6', isNested: false },]
-            },
+        label: 'Main', nodeId: '1', isNested: false,
 
-        ]
     }])
 
 
-    const treeChanger = (scenarioName, workingNode) => {
+    const treeChanger = (scenarioName, workingNode, changeType) => {
+        const newNode = {}
 
-        console.log('workingnode', workingNode);
-        const newNode = {
-            isNested: false,
-            label: scenarioName,
+        if (changeType == 'add') {
+            newNode.isNested = false
+            newNode.label = scenarioName
         }
-      
         setTree(prevTree => {
-            //    console.log(prevTree , workingNode.nodeId)
+
             let number = 0
+
             const treeRecursion = (tree, workingNodeId, newNode) => {
 
-                tree.forEach(n => {
+
+                let newTree = tree.map(n => {
+
                     number += 1
                     n.nodeId = '' + number
                     if (n.isNested) {
                         if (n.nodeId == workingNodeId) {
-                            number += 1
-                            newNode.nodeId=  '' + number
-                            n.externalTree.push(newNode)
+
+
+                            switch (changeType) {
+
+                                case 'add': {
+                                    number += 1
+                                    newNode.nodeId = '' + number
+                                    n.externalTree.push(newNode)
+                                } break;
+
+                            }
+
                         }
-                        return treeRecursion(n.externalTree, workingNodeId, newNode)
+                        if(changeType==='delete'){
+                            n.externalTree=n.externalTree.filter(node=>node.nodeId!=workingNodeId)
+                        }
+                        console.log(n.externalTree, 'asdasdasdasd')
+                        treeRecursion(n.externalTree, workingNodeId, newNode)
+                        return n
                     }
                     else {
                         if (n.nodeId == workingNodeId) {
-                            number += 1
-                            newNode.nodeId=  '' + number
-                            n.isNested = true
-                            n.externalTree = []
-                            n.externalTree.push(newNode)
+                            switch (changeType) {
+
+                                case 'add': {
+                                    number += 1
+                                    newNode.nodeId = '' + number
+                                    n.isNested = true
+                                    n.externalTree = []
+                                    n.externalTree.push(newNode)
+                                } break;
+                                case 'delete': {
+                                    console.log(n)
+                                }
+
+                            }
+
                         }
                     }
+
+                    console.log(n.externalTree, 'asdasdasdasd')
+                    if(changeType==='delete'){
+                        n.externalTree=n.externalTree.filter(node=>node.nodeId!=workingNodeId)
+                    }
+                    return n
                 })
+                return newTree
             }
 
             let oldTree = prevTree
             let workingNodeId = workingNode.nodeId
-            treeRecursion(oldTree, workingNodeId, newNode)
-            console.log(oldTree)
-            return [...oldTree]
+            if (changeType == 'delete') {
+
+            }
+            let changedTree = treeRecursion(oldTree, workingNodeId, newNode)
+            console.log(changedTree)
+            return [...changedTree]
         })
 
 
