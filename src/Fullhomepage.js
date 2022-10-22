@@ -6,7 +6,7 @@ import Data from './Components/Data'
 import ScenarioTree from './Components/ScenarioTree'
 import Toolbar from './Components/Toolbar';
 import './myStyle/myStyle.css'
-import { formType } from './assests/formData'
+import { formType } from './assets/formData'
 import Export from './Components/Export';
 import 'semantic-ui-css/semantic.min.css'
 import { myContext } from './Context/myContext';
