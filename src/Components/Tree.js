@@ -7,6 +7,8 @@ import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
 import Collapse from '@mui/material/Collapse';
 import { display } from '@mui/system';
 import { myContext } from '../Context/myContext';
+import { formType } from '../assests/formData';
+
 // web.cjs is required for IE11 support
 
 function MinusSquare(props) {
@@ -60,7 +62,7 @@ const StyledTreeItem = styled((props) => (
 }));
 
 export default function CustomizedTreeView(props) {
-    const { setNode, setScenario, tree } = useContext(myContext)
+    const { setNode, setScenario, tree, setDataForm, node,setDataFormType  } = useContext(myContext)
 
     const treeRecursion = (tree) => {
         return tree.map(t => {
@@ -75,6 +77,8 @@ export default function CustomizedTreeView(props) {
 
 
     const handleFocusTree = (e, t) => {
+        setDataForm(formType[t.type])
+        setDataFormType(t.type)
         setScenario(t.label)
         setNode(t)
 
@@ -83,7 +87,7 @@ export default function CustomizedTreeView(props) {
     useEffect(() => {
 
 
-        console.log(tree)
+        
     }, [])
     return (
 
