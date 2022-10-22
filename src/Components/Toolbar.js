@@ -1,6 +1,6 @@
 import React from 'react'
 import ToolbarIcon from './ToolbarIcon'
-import { toolbarItems} from '../assests/toolbar'
+import { toolbarItems} from '../assets/toolbar'
 
 const Toolbar = () => {
     return <>

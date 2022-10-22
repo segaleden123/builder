@@ -7,8 +7,7 @@ import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
 import Collapse from '@mui/material/Collapse';
 import { display } from '@mui/system';
 import { myContext } from '../Context/myContext';
-import { formType } from '../assests/formData';
-
+import {formType } from '../assets/formData'
 // web.cjs is required for IE11 support
 
 function MinusSquare(props) {
