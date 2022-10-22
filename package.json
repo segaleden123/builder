@@ -26,15 +26,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "NODE_OPTIONS=--openssl-legacy-provider next dev",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider next build && next export",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "engines": {
-    "node": "8.x",
-    "npm": ">= 3"
-},
   "eslintConfig": {
     "extends": [
       "react-app",
