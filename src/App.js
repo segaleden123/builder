@@ -3,6 +3,7 @@ import firebaseConfig from "./fire";
 import Login from "./Login";
 import './App.css';
 import Main from "./Main";
+import Fullhomepage from "./Fullhomepage";
 
 
 const App = () => {
@@ -24,12 +25,14 @@ const App = () => {
   }
 
   const handleLogin = () => {
+    console.log('login')
     cleanError();
     firebaseConfig
-      .auth()
-      .signInWithEmailAnsPassword(email, password)
+      .auth().signInWithEmailAndPassword(email,password)
       .catch(err => {
         switch(err.code){
+
+
           case "auth/invalid-email":
           case "auth/user_disabled":
           case "auth/user-not-found":
@@ -77,7 +80,7 @@ const App = () => {
     return (
       <div className="App">
           {user ? (
-            <Main handleLogout={handleLogout}></Main>
+            <Fullhomepage handleLogout={handleLogout}></Fullhomepage>
             ): (
             <Login 
             email={email} 
